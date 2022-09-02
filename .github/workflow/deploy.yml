@@ -1,0 +1,19 @@
+name: remote ssh
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    name: Deploy Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+          script: |
+            touch deploy-complete.md
+            echo "배포 성공" >> deploy-complete.md
